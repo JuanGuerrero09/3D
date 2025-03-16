@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { tileSize } from "./constants";
+import { tileSize } from "../constants";
 
 export function Tree(tileIndex, height) {
   const tree = new THREE.Group();
@@ -23,6 +23,8 @@ export function Tree(tileIndex, height) {
     }),
   );
   crown.position.z = height / 2 + 20;
+  crown.receiveShadow = true;
+  crown.castShadow = true;
   tree.add(crown);
 
   return tree;

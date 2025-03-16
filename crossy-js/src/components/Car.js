@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { tileSize } from "./constants";
+import { tileSize } from "../constants";
 import { Wheel } from "./Wheel";
 
 export function Car(initialTileIndex, direction, color) {
@@ -13,6 +13,8 @@ export function Car(initialTileIndex, direction, color) {
     new THREE.MeshLambertMaterial({ color, flatShading: true }),
   );
   main.position.z = 12;
+  main.castShadow = true;
+  main.receiveShadow = true;
 
   car.add(main);
 
@@ -23,7 +25,8 @@ export function Car(initialTileIndex, direction, color) {
 
   cabin.position.x = -6;
   cabin.position.z = 25.5;
-
+  cabin.castShadow = true;
+  cabin.receiveShadow = true;
   car.add(cabin);
 
   const frontWheel = Wheel(18);
@@ -34,30 +37,3 @@ export function Car(initialTileIndex, direction, color) {
 
   return car;
 }
-
-// export function Tree(tileIndex, height) {
-//   const tree = new THREE.Group();
-//   tree.position.x = tileIndex * tileSize;
-//
-//   const trunk = new THREE.Mesh(
-//     new THREE.BoxGeometry(15, 15, 20),
-//     new THREE.MeshLambertMaterial({
-//       color: 0x4d2926,
-//       flatShading: true,
-//     }),
-//   );
-//   trunk.position.z = 10;
-//   tree.add(trunk);
-//
-//   const crown = new THREE.Mesh(
-//     new THREE.BoxGeometry(30, 30, height),
-//     new THREE.MeshLambertMaterial({
-//       color: 0x7aa21d,
-//       flatShading: true,
-//     }),
-//   );
-//   crown.position.z = height / 2 + 20;
-//   tree.add(crown);
-//
-//   return tree;
-// }

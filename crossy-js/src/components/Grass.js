@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { tilesPerRow, tileSize } from "./constants";
+import { tilesPerRow, tileSize } from "../constants";
 
 export function Grass(rowIndex) {
   const grass = new THREE.Group();
@@ -10,6 +10,7 @@ export function Grass(rowIndex) {
     new THREE.MeshLambertMaterial({ color: 0xbaf455 }),
   );
   foundation.position.z = 1.5;
+  foundation.receiveShadow = true;
   grass.add(foundation);
 
   return grass;

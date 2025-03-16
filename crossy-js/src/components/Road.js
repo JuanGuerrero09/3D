@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { tileSize, tilesPerRow } from "./constants";
+import { tileSize, tilesPerRow } from "../constants";
 
 export function Road(rowIndex) {
   const road = new THREE.Group();
@@ -9,6 +9,7 @@ export function Road(rowIndex) {
     new THREE.PlaneGeometry(tilesPerRow * tileSize, tileSize, 3),
     new THREE.MeshLambertMaterial({ color: 0x454a59 }),
   );
+  foundation.receiveShadow = true;
   road.add(foundation);
 
   return road;
