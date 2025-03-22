@@ -5,20 +5,21 @@ export function calculateFinalPosition(currentPosition, moves) {
         rowIndex: position.rowIndex + 1,
         tileIndex: position.tileIndex,
       };
-    if (direction === "forward")
+    if (direction === "backward")
       return {
-        rowIndex: position.rowIndex + 1,
+        rowIndex: position.rowIndex - 1,
         tileIndex: position.tileIndex,
       };
-    if (direction === "forward")
+    if (direction === "left")
       return {
-        rowIndex: position.rowIndex + 1,
-        tileIndex: position.tileIndex,
+        rowIndex: position.rowIndex,
+        tileIndex: position.tileIndex - 1,
       };
-    if (direction === "forward")
+    if (direction === "right")
       return {
-        rowIndex: position.rowIndex + 1,
-        tileIndex: position.tileIndex,
+        rowIndex: position.rowIndex,
+        tileIndex: position.tileIndex + 1,
       };
-  }, initial);
+    return position;
+  }, currentPosition);
 }

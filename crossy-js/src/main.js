@@ -8,6 +8,7 @@ import "./style.css";
 import { animateVehicles } from "./animateVehicles";
 import "./collectUserInput";
 import { animatePlayer } from "./animatePlayer";
+import { generateForestMetadata } from "./utilities/generateRows";
 
 const scene = new THREE.Scene();
 scene.add(player);
@@ -17,14 +18,17 @@ const ambientLight = new THREE.AmbientLight();
 scene.add(ambientLight);
 
 const dirLight = DirectionalLight();
-scene.add(dirLight);
+dirLight.target = player;
+player.add(dirLight);
 
 const camera = Camera();
-scene.add(camera);
+player.add(camera);
 
 function initializeGame() {
   initializeMap();
 }
+
+generateForestMetadata();
 
 initializeGame();
 

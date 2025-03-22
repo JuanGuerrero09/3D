@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { endUpInValidPosition } from "../utilities/endUpInValidPostion";
 
 export const player = Player();
 
@@ -27,7 +28,9 @@ function Player() {
   cap.castShadow = true;
   cap.receiveShadow = true;
   player.add(cap);
-  return player;
+  const playerContainer = new THREE.Group();
+  playerContainer.add(player);
+  return playerContainer;
 }
 
 export const position = {
@@ -38,6 +41,16 @@ export const position = {
 export const movesQueue = [];
 
 export function queueMove(direction) {
+  const isValidMove = endUpInValidPosition(
+    {
+      rowIndex: position.currentRow,
+      tileIndex: position.currentTile,
+    },
+    [...movesQueue, direction],
+  );
+  if (!isValidMove) {
+    return;
+  }
   movesQueue.push(direction);
 }
 
