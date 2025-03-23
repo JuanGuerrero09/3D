@@ -1,5 +1,6 @@
 import * as THREE from "three";
 import { endUpInValidPosition } from "../utilities/endUpInValidPostion";
+import { metadata as rows, addRows } from "./Map";
 
 export const player = Player();
 
@@ -40,6 +41,17 @@ export const position = {
 
 export const movesQueue = [];
 
+export function initializePlayer() {
+  player.position.x = 0;
+  player.position.y = 0;
+  player.children[0].position.z = 0;
+
+  position.currentRow = 0;
+  position.currentTile = 0;
+
+  movesQueue.length = 0;
+}
+
 export function queueMove(direction) {
   const isValidMove = endUpInValidPosition(
     {
@@ -61,4 +73,7 @@ export function stepCompleted() {
   if (direction === "left") position.currentTile -= 1;
   if (direction === "right") position.currentTile += 1;
   console.log(direction, position.currentTile);
+  if (position.currentRow > rows.length - 10) addRows();
+  const scoreDOM = document.getElementById("score");
+  if (scoreDOM) scoreDOM.innerText = position.currentRow.toString();
 }

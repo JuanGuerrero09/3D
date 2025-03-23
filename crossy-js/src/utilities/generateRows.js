@@ -12,13 +12,15 @@ export function generateRows(amount) {
 
 function generateRow() {
   const type = randomElement(["tree", "truck", "car"]);
+  console.log(type);
   if (type === "car") return generateCarLaneMetadata();
   if (type === "truck") return generateTruckLaneMetadata();
-  return generateForestMetadata();
+  else return generateForestMetadata();
 }
 
 function randomElement(array) {
-  return array[Math.floor() * array.length];
+  const result = array[Math.floor(Math.random() * array.length)];
+  return result;
 }
 
 export function generateForestMetadata() {
@@ -59,6 +61,30 @@ function generateCarLaneMetadata() {
   return { type: "car", direction, speed, vehicles };
 }
 
+function generateTruckLaneMetadata() {
+  const direction = randomElement([true, false]);
+  const speed = randomElement([125, 156, 188]);
+
+  const occupiedTiles = new Set();
+
+  const vehicles = Array.from({ length: 2 }, () => {
+    let initialTileIndex;
+    do {
+      initialTileIndex = THREE.MathUtils.randInt(minTileIndex, maxTileIndex);
+    } while (occupiedTiles.has(initialTileIndex));
+    occupiedTiles.add(initialTileIndex - 2);
+    occupiedTiles.add(initialTileIndex - 1);
+    occupiedTiles.add(initialTileIndex);
+    occupiedTiles.add(initialTileIndex + 1);
+    occupiedTiles.add(initialTileIndex + 2);
+
+    const color = randomElement([0xa52523, 0xbdb638, 0x78b14b]);
+
+    return { initialTileIndex, color };
+  });
+
+  return { type: "truck", direction, speed, vehicles };
+}
 // export const metadata = [
 //   {
 //     type: "car",
